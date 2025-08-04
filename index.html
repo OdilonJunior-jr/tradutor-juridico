@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradutor Jurídico - Transcritor Profissional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --secondary-gold: #B8860B;
+            --dark-bg: #0D1117;
+            --card-bg: #161B22;
+            --border-color: #30363D;
+            --text-primary: #F0F6FC;
+            --text-secondary: #8B949E;
+            --success-green: #238636;
+            --danger-red: #DA3633;
+            --warning-orange: #FB8500;
+            --accent-blue: #1F6FEB;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f2e 100%);
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23D4AF37" stroke-width="0.1" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--dark-bg);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary-gold);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Recording Section */
+        .record-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .recording-indicator {
+            display: none;
+            background: var(--danger-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            animation: pulse-indicator 2s infinite;
+        }
+
+        @keyframes pulse-indicator {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .record-button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-gold);
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: var(--dark-bg);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .record-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
+        }
+
+        .record-button.recording {
+            background: linear-gradient(135deg, var(--danger-red), #B91C1C);
+            border-color: var(--danger-red);
+            animation: pulse-button 2s infinite;
+        }
+
+        @keyframes pulse-button {
+            0% { box-shadow: 0 0 0 0 rgba(218, 54, 51, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(218, 54, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(218, 54, 51, 0); }
+        }
+
+        .status-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .timer {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            font-family: 'Inter', monospace;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), #1E40AF);
+            color: white;
+            box-shadow: 0 4px 15px rgba(31, 111, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-red), #B91C1C);
+            color: white;
+            box-shadow: 0 4px 15px rgba(218, 54, 51, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-green), #166534);
+            color: white;
+            box-shadow: 0 4px 15px rgba(35, 134, 54, 0.3);
+        }
+
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Language Select */
+        .language-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Volume Control */
+        .volume-control {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .volume-control h4 {
+            color: var(--primary-gold);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .volume-slider {
+            width: 100%;
+            max-width: 400px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+            margin: 1rem 0;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            cursor: pointer;
+            border: 2px solid var(--dark-bg);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .volume-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+            margin: 1rem 0;
+            height: 40px;
+        }
+
+        .volume-bar {
+            width: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+
+        .volume-bar.active {
+            background: linear-gradient(to top, var(--success-green), var(--primary-gold));
+        }
+
+        /* Transcription Area */
+        .transcription-area {
+            width: 100%;
+            min-height: 250px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+            resize: vertical;
+            font-family: inherit;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .transcription-area:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Confidence Bar */
+        .confidence {
+            margin: 1.5rem 0;
+        }
+
+        .confidence-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--danger-red), var(--warning-orange), var(--success-green));
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .confidence-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 1rem;
+            background: var(--dark-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        /* Export Buttons */
+        .export-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Audio Controls */
+        .audio-controls {
+            text-align: center;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin: 1rem 0;
+            border-radius: 12px;
+            background: var(--dark-bg);
+        }
+
+        .audio-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Error Messages */
+        .error {
+            background: rgba(218, 54, 51, 0.1);
+            color: var(--danger-red);
+            border: 1px solid rgba(218, 54, 51, 0.3);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            font-weight: 500;
+        }
+
+        /* Offline Mode */
+        .offline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .offline-content {
+            text-align: center;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            max-width: 500px;
+            margin: 2rem;
+        }
+
+        .offline-icon {
+            font-size: 4rem;
+            color: var(--warning-orange);
+            margin-bottom: 1rem;
+        }
+
+        .offline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .offline-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .hero {
+                min-height: 50vh;
+                padding: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .export-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .audio-buttons {
+                flex-direction: column;
+            }
+            
+            .record-button {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeInUp 0.6s ease;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-gold);
+        }
+    </style>
+</head>
+<body>
+    <!-- Offline Overlay -->
+    <div class="offline-overlay" id="offlineOverlay">
+        <div class="offline-content">
+            <div class="offline-icon">📡</div>
+            <h2 class="offline-title">Sem Conexão</h2>
+            <p class="offline-message">
+                Você não está conectado à internet. Por favor, conecte-se para usar a transcrição de voz.
+            </p>
+            <button class="btn btn-primary" onclick="checkConnection()">
+                🔄 Tentar Novamente
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tradutor Jurídico</h1>
+            <p class="hero-subtitle">Transcrição de voz profissional para o meio jurídico</p>
+            <p class="hero-description">
+                Grave e transcreva áudios com precisão e segurança. 
+                Ferramenta especializada para profissionais do direito.
+            </p>
+            <button class="cta-button" onclick="scrollToRecording()">
+                🎤 Começar Gravação
+            </button>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="card">
+            <div class="error" id="errorMessage"></div>
+            
+            <!-- Controle de Volume/Sensibilidade -->
+            <div class="volume-control">
+                <h4>🔊 Sensibilidade do Microfone</h4>
+                <input type="range" class="volume-slider" id="gainSlider" min="0.5" max="3" step="0.1" value="1.5">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                    <span>Baixa</span>
+                    <span id="gainValue">1.5x</span>
+                    <span>Alta</span>
+                </div>
+                <div class="volume-indicator" id="volumeIndicator">
+                    <div class="volume-bar" style="height: 15px;"></div>
+                    <div class="volume-bar" style="height: 20px;"></div>
+                    <div class="volume-bar" style="height: 25px;"></div>
+                    <div class="volume-bar" style="height: 30px;"></div>
+                    <div class="volume-bar" style="height: 25px;"></div>
+                    <div class="volume-bar" style="height: 20px;"></div>
+                    <div class="volume-bar" style="height: 15px;"></div>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 1rem;">
+                    Ajuste a sensibilidade para melhorar a captura em ambientes silenciosos
+                </p>
+            </div>
+            
+            <div class="record-section" id="recordingSection">
+                <div class="recording-indicator" id="recordingIndicator">● GRAVANDO</div>
+                
+                <button class="record-button" id="recordButton" onclick="toggleRecording()">
+                    🎤
+                </button>
+                
+                <div class="status-text" id="statusText">Toque para iniciar a gravação</div>
+                <div class="timer" id="timer">00:00</div>
+            </div>
+
+            <select class="language-select" id="languageSelect">
+                <option value="pt-BR">🇧🇷 Português (Brasil)</option>
+                <option value="en-US">🇺🇸 English (Estados Unidos)</option>
+                <option value="es-ES">🇪🇸 Español</option>
+                <option value="fr-FR">🇫🇷 Francês</option>
+            </select>
+
+            <div class="controls">
+                <button class="btn btn-secondary" id="pauseButton" onclick="pauseRecording()" disabled>
+                    ⏸️ Pausar
+                </button>
+                <button class="btn btn-danger" id="stopButton" onclick="stopRecording()" disabled>
+                    ⏹️ Parar
+                </button>
+                <button class="btn btn-secondary" onclick="clearAll()">
+                    🗑️ Limpar
+                </button>
+            </div>
+        </div>
+
+        <!-- Controles de Áudio -->
+        <div class="card" id="audioCard" style="display: none;">
+            <h3 class="card-title">🔊 Reprodução do Áudio</h3>
+            <div class="audio-controls">
+                <audio class="audio-player" id="audioPlayer" controls>
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+                <div class="audio-buttons">
+                    <button class="btn btn-success" onclick="playAudio()">
+                        ▶️ Reproduzir
+                    </button>
+                    <button class="btn btn-primary" onclick="downloadAudio()">
+                        💾 Baixar Áudio
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 class="card-title">📝 Transcrição</h3>
+            
+            <div class="confidence">
+                <div class="confidence-bar">
+                    <div class="confidence-fill" id="confidenceFill"></div>
+                </div>
+                <div class="confidence-text" id="confidenceText">Confiança: 0%</div>
+            </div>
+
+            <textarea 
+                class="transcription-area" 
+                id="transcriptionArea" 
+                placeholder="A transcrição aparecerá aqui automaticamente..."
+                readonly
+            ></textarea>
+
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-value" id="wordCount">0</span>
+                    <div class="stat-label">Palavras</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="charCount">0</span>
+                    <div class="stat-label">Caracteres</div>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="durationStat">0s</span>
+                    <div class="stat-label">Duração</div>
+                </div>
+            </div>
+
+            <div class="export-buttons">
+                <button class="btn btn-primary" onclick="copyText()">
+                    📋 Copiar Texto
+                </button>
+                <button class="btn btn-secondary" onclick="downloadText()">
+                    💾 Baixar Texto
+                </button>
+                <button class="btn btn-secondary" onclick="shareText()" id="shareButton" style="display: none;">
+                    📤 Compartilhar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variáveis globais
+        let mediaRecorder;
+        let recognition;
+        let isRecording = false;
+        let isPaused = false;
+        let startTime;
+        let pausedTime = 0;
+        let timerInterval;
+        let fullTranscript = '';
+        let audioChunks = [];
+        let recordedAudioBlob = null;
+        let audioContext = null;
+        let gainNode = null;
+        let analyser = null;
+        let volumeMonitorInterval = null;
+
+        // Elementos DOM
+        const recordButton = document.getElementById('recordButton');
+        const statusText = document.getElementById('statusText');
+        const timer = document.getElementById('timer');
+        const transcriptionArea = document.getElementById('transcriptionArea');
+        const errorMessage = document.getElementById('errorMessage');
+        const languageSelect = document.getElementById('languageSelect');
+        const recordingIndicator = document.getElementById('recordingIndicator');
+        const confidenceFill = document.getElementById('confidenceFill');
+        const confidenceText = document.getElementById('confidenceText');
+        const audioCard = document.getElementById('audioCard');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const gainSlider = document.getElementById('gainSlider');
+        const gainValue = document.getElementById('gainValue');
+        const volumeIndicator = document.getElementById('volumeIndicator');
+        const offlineOverlay = document.getElementById('offlineOverlay');
+
+        // Inicialização
+        window.addEventListener('load', init);
+
+        function init() {
+            checkConnection();
+            checkSupport();
+            setupSpeechRecognition();
+            setupVolumeControls();
+            
+            // Mostrar botão compartilhar se disponível
+            if (navigator.share) {
+                document.getElementById('shareButton').style.display = 'block';
+            }
+
+            // Monitorar conexão
+            window.addEventListener('online', () => {
+                offlineOverlay.style.display = 'none';
+            });
+
+            window.addEventListener('offline', () => {
+                offlineOverlay.style.display = 'flex';
+            });
+        }
+
+        function checkConnection() {
+            if (!navigator.onLine) {
+                offlineOverlay.style.display = 'flex';
+            } else {
+                offlineOverlay.style.display = 'none';
+            }
+        }
+
+        function scrollToRecording() {
+            document.getElementById('recordingSection').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function setupVolumeControls() {
+            gainSlider.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                gainValue.textContent = value.toFixed(1) + 'x';
+                
+                if (gainNode) {
+                    gainNode.gain.value = value;
+                }
+            });
+        }
+
+        function startVolumeMonitoring() {
+            if (!analyser) return;
+            
+            const dataArray = new Uint8Array(analyser.frequencyBinCount);
+            const volumeBars = volumeIndicator.querySelectorAll('.volume-bar');
+            
+            volumeMonitorInterval = setInterval(() => {
+                analyser.getByteFrequencyData(dataArray);
+                
+                // Calcular volume médio
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) {
+                    sum += dataArray[i];
+                }
+                const average = sum / dataArray.length;
+                const normalizedVolume = average / 255;
+                
+                // Atualizar barras visuais
+                const activeBars = Math.floor(normalizedVolume * volumeBars.length);
+                volumeBars.forEach((bar, index) => {
+                    bar.classList.toggle('active', index < activeBars);
+                });
+            }, 100);
+        }
+
+        function stopVolumeMonitoring() {
+            if (volumeMonitorInterval) {
+                clearInterval(volumeMonitorInterval);
+                volumeMonitorInterval = null;
+            }
+            
+            // Limpar barras visuais
+            const volumeBars = volumeIndicator.querySelectorAll('.volume-bar');
+            volumeBars.forEach(bar => bar.classList.remove('active'));
+        }
+
+        function checkSupport() {
+            if (!navigator.mediaDevices) {
+                showError('Seu dispositivo não suporta gravação de áudio.');
+                return;
+            }
+
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showError('Reconhecimento de voz não disponível neste navegador.');
+                return;
+            }
+        }
+
+        function setupSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = languageSelect.value;
+
+            recognition.onresult = function(event) {
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    const confidence = event.results[i][0].confidence || 0.8;
+
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                    } else {
+                        interimTranscript += transcript;
+                    }
+
+                    updateConfidence(confidence);
+                }
+
+                if (finalTranscript) {
+                    fullTranscript += finalTranscript;
+                }
+
+                transcriptionArea.value = fullTranscript + interimTranscript;
+                updateStats();
+            };
+
+            recognition.onerror = function(event) {
+                if (event.error === 'not-allowed') {
+                    showError('Acesso ao microfone negado. Permita o acesso nas configurações.');
+                } else if (event.error === 'network') {
+                    showError('Erro de conexão. Verifique sua internet.');
+                } else if (event.error === 'no-speech') {
+                    // Silenciosamente continuar - normal em pausas
+                } else {
+                    showError('Erro no reconhecimento de voz: ' + event.error);
+                }
+            };
+
+            recognition.onend = function() {
+                if (isRecording && !isPaused) {
+                    setTimeout(() => recognition.start(), 100);
+                }
+            };
+
+            languageSelect.addEventListener('change', function() {
+                recognition.lang = this.value;
+                if (isRecording) {
+                    recognition.stop();
+                    setTimeout(() => recognition.start(), 100);
+                }
+            });
+        }
+
+        async function toggleRecording() {
+            if (!isRecording) {
+                startRecording();
+            } else {
+                stopRecording();
+            }
+        }
+
+        async function startRecording() {
+            try {
+                // Resetar dados
+                fullTranscript = '';
+                transcriptionArea.value = '';
+                audioChunks = [];
+                recordedAudioBlob = null;
+                audioCard.style.display = 'none';
+                
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: true,
+                        googEchoCancellation: false,
+                        googAutoGainControl: true,
+                        googNoiseSuppression: false,
+                        googHighpassFilter: false,
+                        channelCount: 1,
+                        sampleRate: 44100,
+                        sampleSize: 16,
+                        volume: 1.0
+                    } 
+                });
+
+                // Configurar MediaRecorder para capturar áudio
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'audio/webm;codecs=opus',
+                    audioBitsPerSecond: 128000
+                });
+
+                // Aplicar ganho de áudio se disponível
+                if (window.AudioContext || window.webkitAudioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioContext.createMediaStreamSource(stream);
+                    gainNode = audioContext.createGain();
+                    analyser = audioContext.createAnalyser();
+                    
+                    // Configurar analisador para monitoramento de volume
+                    analyser.fftSize = 256;
+                    
+                    // Aplicar ganho inicial do slider
+                    const gainValue = parseFloat(gainSlider.value);
+                    gainNode.gain.value = gainValue;
+                    
+                    // Conectar nós de áudio
+                    source.connect(gainNode);
+                    gainNode.connect(analyser);
+                    
+                    // Criar novo stream com ganho aplicado
+                    const destination = audioContext.createMediaStreamDestination();
+                    gainNode.connect(destination);
+                    
+                    // Usar o stream com ganho para o MediaRecorder
+                    mediaRecorder = new MediaRecorder(destination.stream, {
+                        mimeType: 'audio/webm;codecs=opus',
+                        audioBitsPerSecond: 128000
+                    });
+                    
+                    // Iniciar monitoramento visual
+                    startVolumeMonitoring();
+                }
+
+                mediaRecorder.ondataavailable = function(event) {
+                    if (event.data.size > 0) {
+                        audioChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = function() {
+                    recordedAudioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioUrl = URL.createObjectURL(recordedAudioBlob);
+                    audioPlayer.src = audioUrl;
+                    audioCard.style.display = 'block';
+                };
+
+                mediaRecorder.start(1000);
+
+                recognition.start();
+
+                isRecording = true;
+                isPaused = false;
+                startTime = Date.now() - pausedTime;
+                
+                updateUI();
+                startTimer();
+
+            } catch (error) {
+                showError('Erro ao acessar microfone: ' + error.message);
+            }
+        }
+
+        function pauseRecording() {
+            if (isRecording && !isPaused) {
+                isPaused = true;
+                pausedTime = Date.now() - startTime;
+                mediaRecorder.pause();
+                recognition.stop();
+                clearInterval(timerInterval);
+                updateUI();
+            } else if (isRecording && isPaused) {
+                isPaused = false;
+                startTime = Date.now() - pausedTime;
+                mediaRecorder.resume();
+                recognition.start();
+                startTimer();
+                updateUI();
+            }
+        }
+
+        function stopRecording() {
+            if (!isRecording) return;
+
+            isRecording = false;
+            isPaused = false;
+            pausedTime = 0;
+
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            
+            recognition.stop();
+            clearInterval(timerInterval);
+            stopVolumeMonitoring();
+            
+            // Parar todas as tracks
+            if (mediaRecorder && mediaRecorder.stream) {
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+            }
+
+            // Limpar contexto de áudio
+            if (audioContext) {
+                audioContext.close();
+                audioContext = null;
+                gainNode = null;
+                analyser = null;
+            }
+
+            updateUI();
+        }
+
+        function playAudio() {
+            if (audioPlayer.src) {
+                audioPlayer.play();
+            }
+        }
+
+        function downloadAudio() {
+            if (!recordedAudioBlob) {
+                showError('Nenhum áudio disponível para download.');
+                return;
+            }
+
+            const now = new Date();
+            const filename = `audio_juridico_${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}_${now.getHours().toString().padStart(2,'0')}${now.getMinutes().toString().padStart(2,'0')}.webm`;
+            
+            const url = URL.createObjectURL(recordedAudioBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // Feedback visual
+            const btn = event.target;
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Baixado!';
+            btn.style.background = 'var(--success-green)';
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '';
+            }, 2000);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                document.getElementById('durationStat').textContent = `${Math.floor(elapsed / 1000)}s`;
+            }, 1000);
+        }
+
+        function updateUI() {
+            if (isRecording) {
+                if (isPaused) {
+                    recordButton.textContent = '▶️';
+                    recordButton.className = 'record-button';
+                    statusText.textContent = 'Pausado - Clique para continuar';
+                    document.getElementById('pauseButton').textContent = '▶️ Continuar';
+                    recordingIndicator.style.display = 'none';
+                } else {
+                    recordButton.textContent = '⏸️';
+                    recordButton.className = 'record-button recording';
+                    statusText.textContent = 'Gravando... Falando ao microfone';
+                    document.getElementById('pauseButton').textContent = '⏸️ Pausar';
+                    recordingIndicator.style.display = 'block';
+                }
+                document.getElementById('pauseButton').disabled = false;
+                document.getElementById('stopButton').disabled = false;
+            } else {
+                recordButton.textContent = '🎤';
+                recordButton.className = 'record-button';
+                statusText.textContent = 'Toque para iniciar a gravação';
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('stopButton').disabled = true;
+                document.getElementById('pauseButton').textContent = '⏸️ Pausar';
+                recordingIndicator.style.display = 'none';
+                timer.textContent = '00:00';
+            }
+        }
+
+        function updateConfidence(confidence) {
+            const percentage = Math.round(confidence * 100);
+            confidenceFill.style.width = `${percentage}%`;
+            confidenceText.textContent = `Confiança: ${percentage}%`;
+        }
+
+        function updateStats() {
+            const text = transcriptionArea.value;
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const chars = text.length;
+
+            document.getElementById('wordCount').textContent = words;
+            document.getElementById('charCount').textContent = chars;
+        }
+
+        function clearAll() {
+            if (isRecording) {
+                stopRecording();
+            }
+            
+            fullTranscript = '';
+            transcriptionArea.value = '';
+            audioChunks = [];
+            recordedAudioBlob = null;
+            audioCard.style.display = 'none';
+            audioPlayer.src = '';
+            updateStats();
+            updateConfidence(0);
+            stopVolumeMonitoring();
+            
+            // Feedback visual
+            const btn = event.target;
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Limpo!';
+            setTimeout(() => btn.innerHTML = original, 1500);
+        }
+
+        function copyText() {
+            if (!transcriptionArea.value.trim()) {
+                showError('Nada para copiar.');
+                return;
+            }
+
+            transcriptionArea.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Copiado!';
+            btn.style.background = 'var(--success-green)';
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '';
+            }, 2000);
+        }
+
+        function downloadText() {
+            const text = transcriptionArea.value;
+            if (!text.trim()) {
+                showError('Nada para baixar.');
+                return;
+            }
+
+            const now = new Date();
+            const filename = `transcricao_juridica_${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}_${now.getHours().toString().padStart(2,'0')}${now.getMinutes().toString().padStart(2,'0')}.txt`;
+            
+            // Adicionar cabeçalho profissional
+            const header = `TRANSCRIÇÃO DE ÁUDIO - TRADUTOR JURÍDICO
+Data: ${now.toLocaleDateString('pt-BR')}
+Hora: ${now.toLocaleTimeString('pt-BR')}
+Idioma: ${languageSelect.options[languageSelect.selectedIndex].text}
+Palavras: ${document.getElementById('wordCount').textContent}
+Caracteres: ${document.getElementById('charCount').textContent}
+Duração: ${document.getElementById('durationStat').textContent}
+
+${'='.repeat(50)}
+
+${text}`;
+            
+            const blob = new Blob([header], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // Feedback visual
+            const btn = event.target;
+            const original = btn.innerHTML;
+            btn.innerHTML = '✅ Baixado!';
+            btn.style.background = 'var(--success-green)';
+            setTimeout(() => {
+                btn.innerHTML = original;
+                btn.style.background = '';
+            }, 2000);
+        }
+
+        async function shareText() {
+            const text = transcriptionArea.value;
+            if (!text.trim()) {
+                showError('Nada para compartilhar.');
+                return;
+            }
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Transcrição Jurídica',
+                        text: text
+                    });
+                } catch (error) {
+                    console.log('Compartilhamento cancelado');
+                }
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            if (isRecording) stopRecording();
+        });
+
+        // Atalhos de teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                toggleRecording();
+            }
+            
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                pauseRecording();
+            }
+            
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                if (transcriptionArea.value.trim()) {
+                    downloadText();
+                }
+            }
+        });
+
+        // Inicializar stats
+        updateStats();
+    </script>
+</body>
+</html>
